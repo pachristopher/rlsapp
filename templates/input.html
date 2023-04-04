@@ -1,0 +1,32 @@
+<!-- input.html -->
+{% extends 'base.html' %}
+
+{% block title %}RLS Client Input{% endblock %}
+
+{% block content %}
+  <h1>RLS Client Input Form</h1>
+  <form method="POST" action="/form">
+    <label>First Name:</label><br>
+    <input type="text" name="fname"><br><br>
+    <label>Last Name:</label><br>
+    <input type="text" name="lname"><br><br>
+    <label>RefNo:</label><br>
+    <input type="text" name="refno"><br><br>
+    <label>Nationality:</label><br>
+    <select name="nationality">
+      {% for country in countries %}
+        <option value="{{ country }}">{{ country }}</option>
+      {% endfor %}
+    </select><br><br>
+    <label>Country of origin:</label><br>
+    <select name="coi">
+      {% for country in countries %}
+        <option value="{{ country }}">{{ country }}</option>
+      {% endfor %}
+    </select><br><br>
+    <label>Married:</label><br>
+    <input type="radio" name="married" value="yes"> Yes<br>
+    <input type="radio" name="married" value="no" checked> No<br><br>
+    <input type="submit" value="Submit">
+  </form>
+{% endblock %}

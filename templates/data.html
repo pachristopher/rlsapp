@@ -1,0 +1,32 @@
+<!-- data.html -->
+
+<!-- 
+	In this template, a table is used to display the data, 
+	with each row representing a document in the collection. 
+	The for loop is used to iterate over the results cursor 
+	and generate a row for each document. 
+-->
+
+{% extends 'base.html' %}
+
+{% block title %}RLS Client Data{% endblock %}
+
+{% block content %}
+  <h1>RLS Client Data</h1>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>RefNo</th>
+      <th>Nationality</th>
+      <th>Married</th>
+    </tr>
+    {% for result in results %}
+      <tr>
+        <td>{{ result['name'] }}</td>
+        <td>{{ result['refno'] }}</td>
+        <td>{{ result['nationality'] }}</td>
+        <td>{{ 'Yes' if result['married'] else 'No' }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+{% endblock %}
