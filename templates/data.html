@@ -18,15 +18,17 @@
       <th>Name</th>
       <th>RefNo</th>
       <th>Nationality</th>
+      <th>Country of Origin</th>
+      <th>Language</th>
       <th>Married</th>
     </tr>
-    {% for result in results %}
       <tr>
-        <td>{{ result['name'] }}</td>
-        <td>{{ result['refno'] }}</td>
-        <td>{{ result['nationality'] }}</td>
-        <td>{{ 'Yes' if result['married'] else 'No' }}</td>
+        <td>{{ user['fname'] }}</td>
+        <td>{{ user['refno'] }}</td>
+        <td>{{ user['nationality'] }}</td>
+        <td>{{ user['coi'] }}</td>
+        <td>{{ user['language'] }}</td>
+        <td>{{ 'Yes' if user['married'] else 'No' }}</td>
       </tr>
-    {% endfor %}
   </table>
 {% endblock %}

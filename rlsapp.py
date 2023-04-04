@@ -12,6 +12,14 @@ collection = db['users']
 # Create a route for the web form and render the template with the input fields:
 rlsapp = Flask(__name__)
 
+# Define the options for the nationality and coi fields
+with open(os.path.join(rlsapp.root_path, 'static', 'country_list.txt')) as f:
+    NATIONALITY_OPTIONS = [line.strip() for line in f.readlines()]
+
+# Define the options for the language field
+with open(os.path.join(rlsapp.root_path, 'static', 'languages.txt')) as f:
+    LANGUAGE_OPTIONS = [line.strip() for line in f.readlines()]
+
 @rlsapp.route('/form', methods=['GET', 'POST'])
 def form():
     if request.method == 'POST':
@@ -20,19 +28,19 @@ def form():
         refno = request.form['refno']
         nationality = request.form['nationality']
         coi = request.form['coi']
+        language = request.form['language']
         married = request.form.get('married') == 'yes'
         collection.insert_one({
             'fname': fname, 'lname': lname,
             'refno': refno, 
             'nationality': nationality, 
             'coi': coi,
+            'language': language,
             'married': married,
             })
         return 'Data saved to database'
     else:
-        with open('country_list.txt', 'r') as f:
-            countries = [country.strip() for country in f.readlines()]
-        return render_template('input.html', countries=countries)
+        return render_template('input.html', nationality_options=NATIONALITY_OPTIONS, language_options=LANGUAGE_OPTIONS)
 
 """	To create a page that queries the MongoDB database and displays the data, 
 	you can create a new route in your Flask app. 
@@ -53,7 +61,6 @@ def form():
 	but with the filename set to the constructed filename.
 """
 
-import os
 from bson import ObjectId
 import markdown
 
@@ -62,11 +69,15 @@ def user_markdown(refno):
     user = collection.find_one({'refno': refno})
     if user is None:
         return f'User with RefNo {refno} not found', 404
-    html = f'# {user["fname lname"]}\n\n' \
-           f'RefNo: {user["refno"]}\n\n' \
-           f'Nationality: {user["nationality"]}\n\n' \
-           f'Married: {"Yes" if user["married"] else "No"}'
-    markdown_text = markdown.markdown(html)
+    with open(os.path.join(rlsapp.root_path, 'templates', 'user_template.md'), 'r') as template_file:
+        template = template_file.read()
+        markdown_text = template.format(fname=user['fname'],
+                                        lname=user['lname'],
+                                        refno=user['refno'],
+                                        nationality=user['nationality'],
+                                        coi=user['coi'],
+                                        language=user['language'],
+                                        married='Yes' if user['married'] else 'No')
     filename = f'{refno}.md'
     filepath = os.path.join(rlsapp.root_path, 'data', filename)
     with open(filepath, 'w') as file:
@@ -76,24 +87,28 @@ def user_markdown(refno):
     response.headers['Content-Type'] = 'text/markdown'
     return response
 
-'''
+
+"""
 import subprocess
 
-@rlsapp.route('/data/markdown')
-def data_markdown():
-    results = collection.find()
-    html = render_template('data.html', results=results)
+@rlsapp.route('/users/<refno>/markdown')
+def user_markdown(refno):
+    user = collection.find_one({'refno': refno})
+    if user is None:
+        return f'User with RefNo {refno} not found', 404
+    html = render_template('data.html', user=user)
     markdown = subprocess.check_output(['pandoc', '-f', 'html', '-t', 'markdown'], input=html.encode('utf-8')).decode('utf-8')
-    refno = results[0]['refno'] if results.count() > 0 else 'unknown'
+    refno = user['refno']
     filename = f'{refno}.md'
-    filepath = os.path.join(app.root_path, 'data', filename)
+    filepath = os.path.join(rlsapp.root_path, 'data', filename)
     with open(filepath, 'w') as file:
         file.write(markdown)
     response = make_response(markdown)
     response.headers['Content-Disposition'] = f'attachment; filename={filename}'
     response.headers['Content-Type'] = 'text/markdown'
     return response
-'''
+"""
+
 
 """
 	Same as above function but for latex instead of markdown
@@ -106,7 +121,7 @@ def data_latex():
     latex = subprocess.check_output(['pandoc', '-f', 'html', '-t', 'latex'], input=html.encode('utf-8')).decode('utf-8')
     refno = results[0]['refno'] if results.count() > 0 else 'unknown'
     filename = f'{refno}.tex'
-    filepath = os.path.join(app.root_path, 'data', filename)
+    filepath = os.path.join(rlsapp.root_path, 'data', filename)
     with open(filepath, 'w') as file:
         file.write(latex)
     response = make_response(latex)
