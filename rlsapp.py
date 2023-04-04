@@ -89,28 +89,6 @@ def user_markdown(refno):
 
 
 """
-import subprocess
-
-@rlsapp.route('/users/<refno>/markdown')
-def user_markdown(refno):
-    user = collection.find_one({'refno': refno})
-    if user is None:
-        return f'User with RefNo {refno} not found', 404
-    html = render_template('data.html', user=user)
-    markdown = subprocess.check_output(['pandoc', '-f', 'html', '-t', 'markdown'], input=html.encode('utf-8')).decode('utf-8')
-    refno = user['refno']
-    filename = f'{refno}.md'
-    filepath = os.path.join(rlsapp.root_path, 'data', filename)
-    with open(filepath, 'w') as file:
-        file.write(markdown)
-    response = make_response(markdown)
-    response.headers['Content-Disposition'] = f'attachment; filename={filename}'
-    response.headers['Content-Type'] = 'text/markdown'
-    return response
-"""
-
-
-"""
 	Same as above function but for latex instead of markdown
 """
 """
