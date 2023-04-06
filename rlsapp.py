@@ -23,17 +23,37 @@ with open(os.path.join(rlsapp.root_path, 'static', 'languages.txt')) as f:
 @rlsapp.route('/form', methods=['GET', 'POST'])
 def form():
     if request.method == 'POST':
+        refno = request.form['refno']
+        ipono = request.form['ipono']
+        solicitor = request.form['solicitor']
         fname = request.form['fname']
         lname = request.form['lname']
-        refno = request.form['refno']
+        alias = request.form['alias']
+        dob = request.form['dob']
+        gender = request.form.get('gender')
+        address = request.form['address']
+        telno = request.form['telno']
+        passport = request.form['passport']
         nationality = request.form['nationality']
+        ethnicity = request.form['ethnicity']
+        religion = request.form['religion']
         coi = request.form['coi']
         language = request.form['language']
         married = request.form.get('married') == 'yes'
         collection.insert_one({
+            'refno': refno,
+            'ipono': ipono,
+            'solicitor': solicitor,
             'fname': fname, 'lname': lname,
-            'refno': refno, 
-            'nationality': nationality, 
+            'alias': alias,
+            'dob': dob,
+            'gender': gender,
+            'address': address,
+            'telno': telno,
+            'passport': passport,
+            'nationality': nationality,
+            'ethnicity': ethnicity,
+            'religion': religion,
             'coi': coi,
             'language': language,
             'married': married,
@@ -71,10 +91,20 @@ def user_markdown(refno):
         return f'User with RefNo {refno} not found', 404
     with open(os.path.join(rlsapp.root_path, 'templates', 'user_template.md'), 'r') as template_file:
         template = template_file.read()
-        markdown_text = template.format(fname=user['fname'],
+        markdown_text = template.format(refno=user['refno'],
+                                        ipono=user['ipono'],
+                                        solicitor=user['solicitor'],
+                                        fname=user['fname'],
                                         lname=user['lname'],
-                                        refno=user['refno'],
+                                        alias=user['alias'],
+                                        dob=user['dob'],
+                                        gender=user['gender'],
+                                        address=user['address'],
+                                        telno=user['telno'],
+                                        passport=user['passport'],
                                         nationality=user['nationality'],
+                                        ethnicity=user['ethnicity'],
+                                        religion=user['religion'],
                                         coi=user['coi'],
                                         language=user['language'],
                                         married='Yes' if user['married'] else 'No')

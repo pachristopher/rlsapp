@@ -6,18 +6,43 @@
 {% block content %}
   <h1>RLS Client Input Form</h1>
   <form method="POST" action="/form">
+    <label>RLS Reference No.</label><br>
+    <input type="text" name="refno"><br><br>
+    <label>IPO Reference No.</label><br>
+    <input type="text" name="ipono"><br><br>
+    <label>Solicitor</label><br>
+    <input type="text" name="solicitor"><br><br>
     <label>First Name:</label><br>
     <input type="text" name="fname"><br><br>
     <label>Last Name:</label><br>
     <input type="text" name="lname"><br><br>
-    <label>RefNo:</label><br>
-    <input type="text" name="refno"><br><br>
+    <label>Alias</label><br>
+    <input type="text" name="alias"><br><br>
+    <label>Date of Birth</label><br>
+    <input type="text" name="dob"><br><br>
+    <p>Gender:</p>
+    <input type="radio" id="male" name="gender" value="Male">
+    <label for="male">Male</label><br>
+    <input type="radio" id="female" name="gender" value="Female">
+    <label for="female">Female</label><br>
+    <input type="radio" id="other" name="gender" value="Other">
+    <label for="other">Other</label><br>
+    <label>Address:</label><br>
+    <input type="text" name="address"><br><br>
+    <label>Telephone Number:</label>
+    <input type="text" name="telno"><br><br>
+    <label>Passport No. (if none, enter None)</label>
+    <input type="text" name="passport"><br><br>
     <label>Nationality:</label><br>
     <select name="nationality" id="nationality">
       {% for option in nationality_options %}
         <option value="{{ option }}">{{ option }}</option>
       {% endfor %}
     </select><br><br>
+    <label>Ethnicity</label><br>
+    <input type="text" name="ethnicity"><br><br>
+    <label>Religion</label><br>
+    <input type="text" name="religion"><br><br>
     <label>Country of origin:</label><br>
     <select name="coi" id="coi"> 
       {% for option in nationality_options %}
