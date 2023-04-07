@@ -55,9 +55,8 @@
         <option value="{{ option }}">{{ option }}</option>
       {% endfor %}
     </select><br><br>
-    <label>Married:</label><br>
-    <input type="radio" name="married" value="yes"> Yes<br>
-    <input type="radio" name="married" value="no" checked> No<br><br>
+    <label for="married">Married?:</label><br>
+    <input type="checkbox" id="married" name="married" value="true"><br><br>
     <input type="submit" value="Submit">
   </form>
 {% endblock %}

@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, make_response
+from flask import Flask, render_template, url_for, request, make_response
 from pymongo import MongoClient
 
 # Connect to the MongoDB database:
@@ -54,6 +54,7 @@ def per_details():
     else:
         return render_template('per_details.html', nationality_options=NATIONALITY_OPTIONS, language_options=LANGUAGE_OPTIONS)
 
+
 """	To create a page that queries the MongoDB database and displays the data, 
 	you can create a new route in your Flask app. 
 	Here's an example of how you can create a new route that queries the database and displays the data:
@@ -76,44 +77,49 @@ def per_details():
 from bson import ObjectId
 import markdown
 
-@rlsapp.route('/users/<refno>/markdown')
-def user_markdown(refno):
-    user = collection.find_one({'refno': refno})
-    if user is None:
-        return f'User with RefNo {refno} not found', 404
-    with open(os.path.join(rlsapp.root_path, 'templates', 'user_template.md'), 'r') as template_file:
-        template = template_file.read()
-        markdown_text = template.format(refno=user['refno'],
-                                        ipono=user['ipono'],
-                                        solicitor=user['solicitor'],
-                                        fname=user['fname'],
-                                        lname=user['lname'],
-                                        alias=user['alias'],
-                                        dob=user['dob'],
-                                        gender=user['gender'],
-                                        address=user['address'],
-                                        telno=user['telno'],
-                                        passport=user['passport'],
-                                        nationality=user['nationality'],
-                                        ethnicity=user['ethnicity'],
-                                        religion=user['religion'],
-                                        coi=user['coi'],
-                                        language=user['language'],
-                                        married='Yes' if user['married'] else 'No')
-    filename = f'{refno}.md'
-    filepath = os.path.join(rlsapp.root_path, 'data', filename)
-    with open(filepath, 'w') as file:
-        file.write(markdown_text)
-    response = make_response(markdown_text)
-    response.headers['Content-Disposition'] = f'attachment; filename={filename}'
-    response.headers['Content-Type'] = 'text/markdown'
-    return response
+@rlsapp.route('/gen_ipat_appeal', methods=['GET', 'POST'])
+def gen_ipat_appeal():
+    if request.method == 'POST':
+        refno = request.form['refno']
+
+        # Get the client data from the database (assume 'refno' is the client's unique identifier)
+        client = collection.find_one({'refno': refno})
+        if client is None:
+            return f'Client with RefNo {refno} not found', 404
+        with open(os.path.join(rlsapp.root_path, 'templates', 'user_template.md'), 'r') as template_file:
+            template = template_file.read()
+            markdown_text = template.format(refno=client['refno'],
+                                        ipono=client['ipono'],
+                                        solicitor=client['solicitor'],
+                                        fname=client['fname'],
+                                        lname=client['lname'],
+                                        alias=client['alias'],
+                                        dob=client['dob'],
+                                        gender=client['gender'],
+                                        address=client['address'],
+                                        telno=client['telno'],
+                                        passport=client['passport'],
+                                        nationality=client['nationality'],
+                                        ethnicity=client['ethnicity'],
+                                        religion=client['religion'],
+                                        coi=client['coi'],
+                                        language=client['language'],
+                                        married=client['married'],) 
+        filename = f'{refno}_ipat_appeal.md'
+        filepath = os.path.join(rlsapp.root_path, 'data', filename)
+        with open(filepath, 'w') as file:
+            file.write(markdown_text)
+        response = make_response(markdown_text)
+        response.headers['Content-Disposition'] = f'attachment; filename={filename}'
+        response.headers['Content-Type'] = 'text/markdown'
+        return response
+
+    return render_template('index.html')
 
 
 """
-	Same as above function but for latex instead of markdown
-"""
-"""
+# Same as above function but for latex instead of markdown
+
 @rlsapp.route('/data/latex')
 def data_latex():
     results = collection.find()
