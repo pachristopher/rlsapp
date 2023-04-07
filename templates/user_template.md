@@ -1,3 +1,8 @@
+<style>
+.center {{
+    text-align: center;
+}}
+</style>
 
 **Part 1: Type of appeal**
 

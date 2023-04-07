@@ -20,47 +20,39 @@ with open(os.path.join(rlsapp.root_path, 'static', 'country_list.txt')) as f:
 with open(os.path.join(rlsapp.root_path, 'static', 'languages.txt')) as f:
     LANGUAGE_OPTIONS = [line.strip() for line in f.readlines()]
 
-@rlsapp.route('/form', methods=['GET', 'POST'])
-def form():
+# Define the routes for the app
+
+@rlsapp.route("/")
+def index():
+    return render_template("index.html")
+
+
+@rlsapp.route('/per_details', methods=['GET', 'POST'])
+def per_details():
     if request.method == 'POST':
-        refno = request.form['refno']
-        ipono = request.form['ipono']
-        solicitor = request.form['solicitor']
-        fname = request.form['fname']
-        lname = request.form['lname']
-        alias = request.form['alias']
-        dob = request.form['dob']
-        gender = request.form.get('gender')
-        address = request.form['address']
-        telno = request.form['telno']
-        passport = request.form['passport']
-        nationality = request.form['nationality']
-        ethnicity = request.form['ethnicity']
-        religion = request.form['religion']
-        coi = request.form['coi']
-        language = request.form['language']
-        married = request.form.get('married') == 'yes'
-        collection.insert_one({
-            'refno': refno,
-            'ipono': ipono,
-            'solicitor': solicitor,
-            'fname': fname, 'lname': lname,
-            'alias': alias,
-            'dob': dob,
-            'gender': gender,
-            'address': address,
-            'telno': telno,
-            'passport': passport,
-            'nationality': nationality,
-            'ethnicity': ethnicity,
-            'religion': religion,
-            'coi': coi,
-            'language': language,
-            'married': married,
-            })
+        data = {
+            'refno': request.form['refno'],
+            'ipono': request.form['ipono'],
+            'solicitor': request.form['solicitor'],
+            'fname': request.form['fname'],
+            'lname': request.form['lname'],
+            'alias': request.form['alias'],
+            'dob': request.form['dob'],
+            'gender': request.form.get('gender'),
+            'address': request.form['address'],
+            'telno': request.form['telno'],
+            'passport': request.form['passport'],
+            'nationality': request.form['nationality'],
+            'ethnicity': request.form['ethnicity'],
+            'religion': request.form['religion'],
+            'coi': request.form['coi'],
+            'language': request.form['language'],
+            'married': request.form.get('married'),
+        }
+        collection.insert_one(data)
         return 'Data saved to database'
     else:
-        return render_template('input.html', nationality_options=NATIONALITY_OPTIONS, language_options=LANGUAGE_OPTIONS)
+        return render_template('per_details.html', nationality_options=NATIONALITY_OPTIONS, language_options=LANGUAGE_OPTIONS)
 
 """	To create a page that queries the MongoDB database and displays the data, 
 	you can create a new route in your Flask app. 
