@@ -3,6 +3,10 @@
 
 {% block title %}RLS Client Input{% endblock %}
 
+{% block head %}
+<script type="text/javascript" src="javascript/family_mems.js"></script>
+{% endblock %}
+
 {% block content %}
   <h1>RLS Client Input Form</h1>
   <form method="POST" action="/per_details">
@@ -57,6 +61,28 @@
     </select><br><br>
     <label for="married">Married?:</label><br>
     <input type="checkbox" id="married" name="married" value="true"><br><br>
+
+    <!-- Inputs for the personal details of the main client go here -->
+
+    <h2>Family Members</h2>
+
+        <label for="num_fam_mems">Number of Family members:</label>
+        <input type="number" name="num_fam_mems"><br>
+        {% for i in range(num_fam_mems) %}
+            <h4> Family member {{ i + 1 }}</h4>
+            <label for="fam_name_{{ i }}">Name:</label>
+            <input type="text" name="fam_name_{{ i }}"><br>
+            <label for="fam_dob_{{ i }}">Date of birth:</label>
+            <input type="date" name="fam_dob_{{ i }}"><br>
+            <label for="fam_gender_{{ i }}">Gender:</label>
+            <input type="text" name="fam_gender_{{ i }}"><br>
+            <label for="fam_relnship_{{ i }}">Relationship to Applicant:</label>
+            <input type="text" name+"fam_relnship_{{ i }}"><br>
+            <label for="fam_refno_{{ i }}">Reference No.:</label>
+            <input type="number" name="fam_refno_{{ i }}"><br>
+            <label for="fam_nationality_{{ i }}">Nationality:</label>
+            <input type="text" name="fam_nationality_{{ i }}"><br>
+        {% endfor %}
     <input type="submit" value="Submit">
   </form>
 {% endblock %}

@@ -30,6 +30,16 @@ def index():
 @rlsapp.route('/per_details', methods=['GET', 'POST'])
 def per_details():
     if request.method == 'POST':
+        family = []
+        for i in range(int(request.form['num_fam_mems'])):
+            fam_mem = {}
+            fam_mem['name'] = request.form['fam_name_' + str(i)]
+            fam_mem['dob'] = request.form['fam_dob_' + str(i)]
+            fam_mem['gender'] = request.form['fam_mem_' + str(i)]
+            fam_mem['relnship'] = request.form['fam_mem_' + str(i)]
+            fam_mem['refno'] = request.form['fam_mem_' + str(i)]
+            fam_mem['nationality'] = request.form['fam_mem-' + str(i)]
+            family.append(fam_mem)
         data = {
             'refno': request.form['refno'],
             'ipono': request.form['ipono'],
@@ -48,6 +58,7 @@ def per_details():
             'coi': request.form['coi'],
             'language': request.form['language'],
             'married': request.form.get('married'),
+            'family': family,
         }
         collection.insert_one(data)
         return 'Data saved to database'
