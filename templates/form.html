@@ -1,54 +1,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Family Info Form</title>
+    <title>Client Information</title>
 </head>
 <body>
-    <h1>Family Information Form</h1>
-    <form action="{{ url_for('submit_family_info') }}" method="POST" id="family_form">
-        <label for="name">Name:</label>
-        <input type="text" name="name" required><br>
-        <label for="age">Age:</label>
-        <input type="number" name="age" required><br>
-        <label for="address">Address:</label>
-        <input type="text" name="address" required><br>
-        <label for="num_family_members">Number of Family Members:</label>
-        <input type="number" name="num_family_members" id="num_family_members" value="0" min="0" required><br>
-        <button type="button" onclick="addFamilyMember()">Add Family Member</button>
-        <br>
-        <div id="family_members">
-            <!-- No family members to display initially -->
+    <h1>Client Information</h1>
+    <form method="post">
+        <label>Name:</label>
+        <input type="text" name="name"><br>
+        <label>ID:</label>
+        <input type="text" name="per_id"><br>
+        <label>Address:</label>
+        <input type="text" name="address"><br>
+        <label>Religion:</label>
+        <input type="text" name="religion"><br>
+        <label>Nationality:</label>
+        <select name="nationality">
+            {% for nationality in nationalities %}
+            <option value="{{ nationality }}">{{ nationality }}</option>
+            {% endfor %}
+        </select><br>
+        
+        <label>Number of family members:</label>
+        <input type="number" name="num_fam_mems" id="num_fam_mems" value="{{ num_fam_mems }}"><br>
+        
+        <div id="fam_mems">
         </div>
-        <br>
-        <input type="submit" value="Submit">
+        
+        <button type="submit">Submit</button>
     </form>
     
     <script>
-        function addFamilyMember() {
-            var num_family_members = document.getElementById("num_family_members");
-            var count = parseInt(num_family_members.value);
-            count++;
+        // Get the number of family members input element
+        var numFamilyMembers = document.getElementById('num_fam_mems');
         
-            var div = document.createElement("div");
-            div.id = "family_member_" + count;
-            div.innerHTML = "<h2>Family Member " + count + "</h2>" +
-                            "<label for='family_name_" + count + "'>Name:</label>" +
-                            "<input type='text' name='family_name_" + count + "' value='0' required><br>" +
-                            "<label for='family_age_" + count + "'>Age:</label>" +
-                            "<input type='number' name='family_age_" + count + "' value='0' required><br>" +
-                            "<label for='family_reln_" + count + "'>Relationship:</label>" +
-                            "<input type='text' name='family_reln_" + count + "' value='0' required><br>";
-        
-            var form = document.getElementById("family_form");
-        
-            if (count > 1) {
-                form.insertBefore(div, num_family_members);
-            } else {
-                form.appendChild(div);
+        // Add an event listener to dynamically generate input fields for family members
+        numFamilyMembers.addEventListener('input', function() {
+            var num = numFamilyMembers.value;
+            var familyMembersDiv = document.getElementById('fam_mems');
+            familyMembersDiv.innerHTML = '';
+            
+            for (var i = 0; i < num; i++) {
+                var div = document.createElement('div');
+                div.innerHTML = '<h3>Family Member ' + (i+1) + '</h3>' +
+                                '<label>Name:</label>' +
+                                '<input type="text" name="fam_name_' + i + '"><br>' +
+                                '<label>ID:</label>' +
+                                '<input type="text" name="fam_per_id_' + i + '"><br>' +
+                                '<label>Address:</label>' +
+                                '<input type="text" name="fam_address_' + i + '"><br><br>';
+                familyMembersDiv.appendChild(div);
             }
-        
-            num_family_members.value = count;
-        }
+        });
     </script>
 </body>
 </html>
