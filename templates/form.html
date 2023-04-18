@@ -6,12 +6,28 @@
 <body>
     <h1>Client Information</h1>
     <form method="post">
-        <label>Name:</label>
-        <input type="text" name="name"><br>
-        <label>ID:</label>
-        <input type="text" name="per_id"><br>
+        <label>RLS Ref No:</label>
+        <input type="number" name="rlsno"><br>
+        <label>Solicitor:</label>
+        <input type="text" name="solicitor"><br>
+        <label>First Name:</label>
+        <input type="text" name="fname"><br>
+        <label>Surname:</label>
+        <input type="text" name="lname"><br>
+        <label>IPO Number:</label>
+        <input type="text" name="ipo_no"><br>
+        <label>Alias:</label>
+        <input type="text" name="alias"><br>
+        <label>Date of Birth:</label>
+        <input type="text" name="dob"><br>
+        <label>Gender:</label>
+        <input type="text" name="gender"><br>
         <label>Address:</label>
         <input type="text" name="address"><br>
+        <label>Email:</label>
+        <input type="text" name="email"><br>
+        <label>Passport Number:</label>
+        <input type="text" name="passport"><br>
         <label>Religion:</label>
         <input type="text" name="religion"><br>
         <label>Nationality:</label>
@@ -26,6 +42,10 @@
             <option value="{{ language }}">{{ language }}</option>
             {% endfor %}
         </select><br>
+        <label>Ethnicity:</label>
+        <input type="text" name="ethnicity"><br>
+        <label>Married?:</label>
+        <input type="text" name="married"><br>
         <label>Number of family members:</label>
         <input type="number" name="num_fam_mems" id="num_fam_mems" value="{{ num_fam_mems }}"><br>
         
@@ -48,10 +68,18 @@
             for (var i = 0; i < num; i++) {
                 var div = document.createElement('div');
                 div.innerHTML = '<h3>Family Member ' + (i+1) + '</h3>' +
+                                '<label>IPO Ref. No.:</label>' +
+                                '<input type="text" name="fam_ipo_no_' + i + '"><br>' +
                                 '<label>Name:</label>' +
                                 '<input type="text" name="fam_name_' + i + '"><br>' +
-                                '<label>ID:</label>' +
-                                '<input type="text" name="fam_per_id_' + i + '"><br>' +
+                                '<label>Date of birth:</label>' +
+                                '<input type="text" name="fam_dob_' + i + '"><br>' +
+                                '<label>Gender:</label>' +
+                                '<input type="text" name="fam_mem_gender_' + i + '"><br>' +
+                                '<label>Relationship to applicant:</label>' +
+                                '<input type="text" name="fam_mem_relnship_' + i + '"><br>' +
+                                '<label>Nationality:</label>' +
+                                '<input type="text" name="fam_mem_nationality_' + i + '"><br>' +
                                 '<label>Address:</label>' +
                                 '<input type="text" name="fam_address_' + i + '"><br><br>';
                 familyMembersDiv.appendChild(div);
