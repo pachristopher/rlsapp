@@ -8,20 +8,25 @@ client = MongoClient('mongodb://localhost:27017/')
 db = client['rls']
 collection = db['users']
 
-# Define a list of nationalities for the dropdown
+# Define the options for the nationalities field 
 with open('static/country_list.txt', 'r') as f:
-    nationalities = [country.strip() for country in f.readlines()]
+    NAT_OPTIONS = [line.strip() for line in f.readlines()]
+
+# Define the options for the language field
+with open('static/languages.txt', 'r') as f:
+    LANG_OPTIONS = [line.strip() for line in f.readlines()]
 
 # Create a route to handle client info form 
 @newapp.route('/form', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        # Get client info form form
+        # Get client info from form
         name = request.form.get('name')
         per_id = request.form.get('per_id')
         address = request.form.get('address')
         religion = request.form.get('religion')
         nationality = request.form.get('nationality')
+        language = request.form.get('language')
         num_fam_mems = int(request.form.get('num_fam_mems'))
 
         # Create a list to store family member info
@@ -42,6 +47,7 @@ def index():
             'address': address,
             'religion': religion,
             'nationality': nationality,
+            'language': language,
             'fam_mems': fam_mems,
         }
 
@@ -53,7 +59,7 @@ def index():
     # If the request method is GET, render the form
     else:
         # Render the form template with the nationalities dropdown and default number of family members
-        return render_template('form.html', nationalities=nationalities, num_fam_mems=0)
+        return render_template('form.html', nationality_options=NAT_OPTIONS, language_options=LANG_OPTIONS, num_fam_mems=0)
 
 # Run the app
 if __name__ == '__main__':

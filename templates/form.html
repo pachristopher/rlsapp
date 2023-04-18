@@ -16,11 +16,16 @@
         <input type="text" name="religion"><br>
         <label>Nationality:</label>
         <select name="nationality">
-            {% for nationality in nationalities %}
+            {% for nationality in nationality_options %}
             <option value="{{ nationality }}">{{ nationality }}</option>
             {% endfor %}
         </select><br>
-        
+        <label>Language:</label>
+        <select name='language'>
+            {% for language in language_options %}
+            <option value="{{ language }}">{{ language }}</option>
+            {% endfor %}
+        </select><br>
         <label>Number of family members:</label>
         <input type="number" name="num_fam_mems" id="num_fam_mems" value="{{ num_fam_mems }}"><br>
         
