@@ -1,44 +1,23 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Client data Form</title>
-    </head>
-    <body>
-        <h1>Client Data Form</h1>
-        <form method="POST">
-            {{ form.hidden_tag }}
-            <label>Name:</label>
-            {{ form.name() }}
-            <br>
-            <label>Personal ID:</label>
-            {{ form.perid() }}
-            <br>
-            <label>Address:</label>
-            {{ form.address() }}
-            <br>
-            <label>Religion:</label>
-            {{ form.religion() }}
-            <br>
-            <label>Nationality:</label>
-            {{ form.nationality() }}
-            <br>
-            <label>NUmber of family members:</label>
-            {{ form.num_fam_mems() }}
-            <br>
-            {% for member in form.fam_mems %}
-                <fieldset>
-                    <legend>Family Member</legend>
-                    <label>Name:</label>
-                    {{ member.name() }}
-                    <br>
-                    <label>Personal ID:</label>
-                    {{ member.perid() }}
-                    <br>
-                    <label>Address:</label>
-                    {{ member.address() }}
-                </fieldset>
-            {% endfor %}
-            <button type="submit">Submit</button>
-        </form>
-    </body>
-</html>
+<!-- index.html -->
+{% extends 'base.html' %}
+
+{% block title %}Client Management App{% endblock %}
+
+{% block content %}
+    <h1>Welcome to the Client Management App</h1>
+    <p>Please select an option:</p>
+    <ul>
+        <li><a href="/per_details"><button>Enter Personal Details</button></a></li>
+        <li><a href="/case_details"><button>Enter Case Details</button></a></li>
+        <li><a href="/notes"><button>Enter Notes</button></a></li>
+        <li><a href="/generate_doc1"><button>Generate Document 1</button></a></li>
+        <li><a href="/generate_doc2"><button>Generate Document 2</button></a></li>
+    </ul>
+    <h2>Generate IPAT Appeal Form</h2>
+    <form method="POST" action="{{ url_for('gen_ipat_appeal') }}">
+      <label for="rlsno">RLS Ref No:</label>
+      <input type="text" id="rlsno" name="rlsno">
+      <br><br>
+      <input type="submit" value="Generate">
+    </form>
+{% endblock %}

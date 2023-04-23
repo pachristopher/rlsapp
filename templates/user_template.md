@@ -26,7 +26,7 @@ OR
 
 **Part 2:   Applicant's Details**
 
-[2.1] Personal Reference Number: {refno}
+[2.1] RLS Personal Reference Number: {rlsno}
 
 [2.2] Full Name: {fname} {lname}
 
@@ -36,7 +36,7 @@ OR
 
 [2.5] Address: {address}
 
-[2.6] Telephone Number(s) (if any): {telno}
+[2.6] Telephone Number(s) (if any): {email}
 
 [2.7] Nationality: {nationality}
 

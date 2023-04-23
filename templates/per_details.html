@@ -1,88 +1,94 @@
 <!-- per_details.html -->
 {% extends 'base.html' %}
 
-{% block title %}RLS Client Input{% endblock %}
-
-{% block head %}
-<script type="text/javascript" src="javascript/family_mems.js"></script>
-{% endblock %}
+{% block title %}RLS CLient Input{% endblock %}
 
 {% block content %}
-  <h1>RLS Client Input Form</h1>
-  <form method="POST" action="/per_details">
-    <label>RLS Reference No.</label><br>
-    <input type="text" name="refno"><br><br>
-    <label>IPO Reference No.</label><br>
-    <input type="text" name="ipono"><br><br>
-    <label>Solicitor</label><br>
-    <input type="text" name="solicitor"><br><br>
-    <label>First Name:</label><br>
-    <input type="text" name="fname"><br><br>
-    <label>Last Name:</label><br>
-    <input type="text" name="lname"><br><br>
-    <label>Alias</label><br>
-    <input type="text" name="alias"><br><br>
-    <label>Date of Birth</label><br>
-    <input type="text" name="dob"><br><br>
-    <p>Gender:</p>
-    <input type="radio" id="male" name="gender" value="Male">
-    <label for="male">Male</label><br>
-    <input type="radio" id="female" name="gender" value="Female">
-    <label for="female">Female</label><br>
-    <input type="radio" id="other" name="gender" value="Other">
-    <label for="other">Other</label><br>
-    <label>Address:</label><br>
-    <input type="text" name="address"><br><br>
-    <label>Telephone Number:</label>
-    <input type="text" name="telno"><br><br>
-    <label>Passport No. (if none, enter None)</label>
-    <input type="text" name="passport"><br><br>
-    <label>Nationality:</label><br>
-    <select name="nationality" id="nationality">
-      {% for option in nationality_options %}
-        <option value="{{ option }}">{{ option }}</option>
-      {% endfor %}
-    </select><br><br>
-    <label>Ethnicity</label><br>
-    <input type="text" name="ethnicity"><br><br>
-    <label>Religion</label><br>
-    <input type="text" name="religion"><br><br>
-    <label>Country of origin:</label><br>
-    <select name="coi" id="coi"> 
-      {% for option in nationality_options %}
-        <option value="{{ option }}">{{ option }}</option>
-      {% endfor %}
-    </select><br><br>
-    <label>Language:</label><br>
-    <select name="language" id="language"> 
-      {% for option in language_options %}
-        <option value="{{ option }}">{{ option }}</option>
-      {% endfor %}
-    </select><br><br>
-    <label for="married">Married?:</label><br>
-    <input type="checkbox" id="married" name="married" value="true"><br><br>
-
-    <!-- Inputs for the personal details of the main client go here -->
-
-    <h2>Family Members</h2>
-
-        <label for="num_fam_mems">Number of Family members:</label>
-        <input type="number" name="num_fam_mems"><br>
-        {% for i in range(num_fam_mems) %}
-            <h4> Family member {{ i + 1 }}</h4>
-            <label for="fam_name_{{ i }}">Name:</label>
-            <input type="text" name="fam_name_{{ i }}"><br>
-            <label for="fam_dob_{{ i }}">Date of birth:</label>
-            <input type="date" name="fam_dob_{{ i }}"><br>
-            <label for="fam_gender_{{ i }}">Gender:</label>
-            <input type="text" name="fam_gender_{{ i }}"><br>
-            <label for="fam_relnship_{{ i }}">Relationship to Applicant:</label>
-            <input type="text" name+"fam_relnship_{{ i }}"><br>
-            <label for="fam_refno_{{ i }}">Reference No.:</label>
-            <input type="number" name="fam_refno_{{ i }}"><br>
-            <label for="fam_nationality_{{ i }}">Nationality:</label>
-            <input type="text" name="fam_nationality_{{ i }}"><br>
-        {% endfor %}
-    <input type="submit" value="Submit">
-  </form>
+    <h1>RLS Client Information</h1>
+    <form method="post">
+        <label>RLS Ref No:</label>
+        <input type="number" name="rlsno"><br>
+        <label>Solicitor:</label>
+        <input type="text" name="solicitor"><br>
+        <label>First Name:</label>
+        <input type="text" name="fname"><br>
+        <label>Surname:</label>
+        <input type="text" name="lname"><br>
+        <label>IPO Number:</label>
+        <input type="text" name="ipo_no"><br>
+        <label>Alias:</label>
+        <input type="text" name="alias"><br>
+        <label>Date of Birth:</label>
+        <input type="text" name="dob"><br>
+        <p>Gender:</p>
+        <input type="radio" id="male"  name="gender" value="Male"><br>
+        <label for="male">Male</label><br>
+        <input type="radio" id="female" name="gender" value="Female">
+        <label for="female">Female</label><br>
+        <input type="radio" id="other" name="gender" value="Other">
+        <label for="other">Other</label><br>
+        <label>Address:</label>
+        <input type="text" name="address"><br>
+        <label>Email:</label>
+        <input type="text" name="email"><br>
+        <label>Passport Number:</label>
+        <input type="text" name="passport"><br>
+        <label>Religion:</label>
+        <input type="text" name="religion"><br>
+        <label>Nationality:</label>
+        <select name="nationality">
+            {% for nationality in nationality_options %}
+            <option value="{{ nationality }}">{{ nationality }}</option>
+            {% endfor %}
+        </select><br>
+        <label>Language:</label>
+        <select name='language'>
+            {% for language in language_options %}
+            <option value="{{ language }}">{{ language }}</option>
+            {% endfor %}
+        </select><br>
+        <label>Ethnicity:</label>
+        <input type="text" name="ethnicity"><br>
+        <label for="married">Married?:</label><br>
+        <input type="checkbox" id="married" name="married" value="True"><br><br>
+        <label>Number of family members:</label>
+        <input type="number" name="num_fam_mems" id="num_fam_mems" value="{{ num_fam_mems }}"><br>
+        
+        <div id="fam_mems">
+        </div>
+        
+        <button type="submit">Submit</button>
+    </form>
+    
+    <script>
+        // Get the number of family members input element
+        var numFamilyMembers = document.getElementById('num_fam_mems');
+        
+        // Add an event listener to dynamically generate input fields for family members
+        numFamilyMembers.addEventListener('input', function() {
+            var num = numFamilyMembers.value;
+            var familyMembersDiv = document.getElementById('fam_mems');
+            familyMembersDiv.innerHTML = '';
+            
+            for (var i = 0; i < num; i++) {
+                var div = document.createElement('div');
+                div.innerHTML = '<h3>Family Member ' + (i+1) + '</h3>' +
+                                '<label>IPO Ref. No.:</label>' +
+                                '<input type="text" name="fam_ipo_no_' + i + '"><br>' +
+                                '<label>Name:</label>' +
+                                '<input type="text" name="fam_name_' + i + '"><br>' +
+                                '<label>Date of birth:</label>' +
+                                '<input type="text" name="fam_dob_' + i + '"><br>' +
+                                '<label>Gender:</label>' +
+                                '<input type="text" name="fam_mem_gender_' + i + '"><br>' +
+                                '<label>Relationship to applicant:</label>' +
+                                '<input type="text" name="fam_mem_relnship_' + i + '"><br>' +
+                                '<label>Nationality:</label>' +
+                                '<input type="text" name="fam_mem_nationality_' + i + '"><br>' +
+                                '<label>Address:</label>' +
+                                '<input type="text" name="fam_address_' + i + '"><br><br>';
+                familyMembersDiv.appendChild(div);
+            }
+        });
+    </script>
 {% endblock %}
