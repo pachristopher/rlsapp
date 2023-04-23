@@ -14,7 +14,7 @@ def gen_ipat_appeal():
         client = collection.find_one({'rlsno': rlsno})
         if client is None:
             return f'Client with RefNo {rlsno} not found', 404
-        with open(os.path.join(rlsapp.root_path, 'templates', 'user_template.md'), 'r') as template_file:
+        with open(os.path.join(rlsapp.root_path, 'templates', 'ipat_appeal_template.md'), 'r') as template_file:
             template = template_file.read()
             markdown_text = template.format(rlsno=client['rlsno'],
                                         ipo_no=client['ipo_no'],
@@ -25,6 +25,7 @@ def gen_ipat_appeal():
                                         dob=client['dob'],
                                         gender=client['gender'],
                                         address=client['address'],
+                                        telno=client['telno'],
                                         email=client['email'],
                                         passport=client['passport'],
                                         nationality=client['nationality'],

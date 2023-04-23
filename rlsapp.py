@@ -36,13 +36,15 @@ def per_details():
         dob = request.form.get('dob')
         gender = request.form.get('gender')
         address = request.form.get('address')
+        telno = request.form.get('telno')
         email = request.form.get('email')
         passport = request.form.get('passport')
         nationality = request.form.get('nationality')
         ethnicity = request.form.get('ethnicity')
         religion = request.form.get('religion')
+        interp = request.form.get('interp') == 'on'
         language = request.form.get('language')
-        married = request.form.get('married')
+        married = request.form.get('married') == 'on'
         num_fam_mems = int(request.form.get('num_fam_mems'))
 
         # Create a list to store family member info
@@ -53,10 +55,11 @@ def per_details():
             fam_mem = {}
             fam_mem['name'] = request.form.get('fam_name_' + str(mem))
             fam_mem['ipo_no'] = request.form.get('fam_ipo_no_' + str(mem))
-            fam_mem['address'] = request.form.get('fam_address' + str(mem))
+            fam_mem['address'] = request.form.get('fam_address_' + str(mem))
             fam_mem['dob'] = request.form.get('fam_dob_' + str(mem))
             fam_mem['gender'] = request.form.get('fam_gender_' + str(mem))
             fam_mem['relnship'] = request.form.get('fam_relnship_' + str(mem))
+            fam_mem['dependent'] = request.form.get('fam_dependent_' + str(mem)) == 'on'
             fam_mem['nationality'] = request.form.get('fam_nationality_' + str(mem))
             fam_mems.append(fam_mem)
 
@@ -72,11 +75,13 @@ def per_details():
             'gender': gender,
             'address': address,
             'email': email,
+            'telno': telno,
             'passport': passport,
             'nationality': nationality,
             'ethnicity': ethnicity,
             'religion': religion,
             'language': language,
+            'interp': interp,
             'married': married,
             'fam_mems': fam_mems,
         }

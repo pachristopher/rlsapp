@@ -21,7 +21,7 @@
         <label>Date of Birth:</label>
         <input type="text" name="dob"><br>
         <p>Gender:</p>
-        <input type="radio" id="male"  name="gender" value="Male"><br>
+        <input type="radio" id="male"  name="gender" value="Male">
         <label for="male">Male</label><br>
         <input type="radio" id="female" name="gender" value="Female">
         <label for="female">Female</label><br>
@@ -29,6 +29,8 @@
         <label for="other">Other</label><br>
         <label>Address:</label>
         <input type="text" name="address"><br>
+        <label>Telephone No.</label>
+        <input type="number" name="telno"><br>
         <label>Email:</label>
         <input type="text" name="email"><br>
         <label>Passport Number:</label>
@@ -41,6 +43,8 @@
             <option value="{{ nationality }}">{{ nationality }}</option>
             {% endfor %}
         </select><br>
+        <label>Interpreter required?:</label>
+        <input type="checkbox" name="interp"><br>
         <label>Language:</label>
         <select name='language'>
             {% for language in language_options %}
@@ -49,8 +53,8 @@
         </select><br>
         <label>Ethnicity:</label>
         <input type="text" name="ethnicity"><br>
-        <label for="married">Married?:</label><br>
-        <input type="checkbox" id="married" name="married" value="True"><br><br>
+        <label for="married">Married?:</label>
+        <input type="checkbox" id="married" name="married"><br><br>
         <label>Number of family members:</label>
         <input type="number" name="num_fam_mems" id="num_fam_mems" value="{{ num_fam_mems }}"><br>
         
@@ -80,11 +84,13 @@
                                 '<label>Date of birth:</label>' +
                                 '<input type="text" name="fam_dob_' + i + '"><br>' +
                                 '<label>Gender:</label>' +
-                                '<input type="text" name="fam_mem_gender_' + i + '"><br>' +
+                                '<input type="text" name="fam_gender_' + i + '"><br>' +
                                 '<label>Relationship to applicant:</label>' +
-                                '<input type="text" name="fam_mem_relnship_' + i + '"><br>' +
+                                '<input type="text" name="fam_relnship_' + i + '"><br>' +
+                                '<label>Dependent on applicant?:</label>' +
+                                '<input type="checkbox" name="fam_dependent_' + i + '"><br>' +
                                 '<label>Nationality:</label>' +
-                                '<input type="text" name="fam_mem_nationality_' + i + '"><br>' +
+                                '<input type="text" name="fam_nationality_' + i + '"><br>' +
                                 '<label>Address:</label>' +
                                 '<input type="text" name="fam_address_' + i + '"><br><br>';
                 familyMembersDiv.appendChild(div);
