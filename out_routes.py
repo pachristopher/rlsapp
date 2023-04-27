@@ -16,6 +16,20 @@ def gen_ipat_appeal():
             return f'Client with RefNo {rlsno} not found', 404
         with open(os.path.join(rlsapp.root_path, 'templates', 'ipat_appeal_template.md'), 'r') as template_file:
             template = template_file.read()
+
+            # Get the family members data for this client
+            fam_mems_markdown = []
+            for fm in client.get('fam_mems', []):
+                # check if the family mem is dependent
+                if fm.get('dependent', False):
+                    # Include the family mem's info in the markdown
+                    fm_markdown = f"""| {fm.get('name', '')} | {fm.get('dob', '')} | {fm.get('gender')} | {fm.get('relnship', '')} | {fm.get('ipo_no', '')} |"""
+                    fam_mems_markdown.append(fm_markdown)
+
+            # Join the list of fam mem markdowns into a single string
+            fam_mems_markdown_str = '\n'.join(fam_mems_markdown)
+
+            # Fill in the template with the client and fam mems info
             markdown_text = template.format(rlsno=client['rlsno'],
                                         ipo_no=client['ipo_no'],
                                         solicitor=client['solicitor'],
@@ -31,8 +45,11 @@ def gen_ipat_appeal():
                                         nationality=client['nationality'],
                                         ethnicity=client['ethnicity'],
                                         religion=client['religion'],
+                                        interp=client['interp'],
                                         language=client['language'],
-                                        married=client['married'],) 
+                                        married=client['married'],
+                                        fam_mems=fam_mems_markdown_str,
+                                        ) 
         filename = f'{rlsno}_ipat_appeal.md'
         filepath = os.path.join(rlsapp.root_path, 'data', filename)
         with open(filepath, 'w') as file:

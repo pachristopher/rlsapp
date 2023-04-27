@@ -44,6 +44,7 @@ OR
 
 | Name | Date of birth | Male or female | Relationship to Applicant | Personal Ref. No. |
 | :--: | :---: | :---: | :---: | :---: |
+{fam_mems}
 
 [2.9] Details of any other family members living in the State:
 
@@ -118,7 +119,7 @@ Notes: If you have any other family members with a claim for Interntional Protec
 
 [7.3] If yes, please specify the precise language or dialect for which you require interpretation.
 
-> {{language }}
+> {{ language }}
 
 **Part 8: Accelerated Appeals (if applicable)**
 
