@@ -99,6 +99,7 @@ def per_details():
 # Print Form Page
 # Import the routes from out_routes.py
 from out_routes import *
+from pdf_out_route import *
 
 # Run the app
 if __name__ == '__main__':

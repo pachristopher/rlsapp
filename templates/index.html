@@ -20,4 +20,12 @@
       <br><br>
       <input type="submit" value="Generate">
     </form>
+    <br><br>
+    <h2>Generate IPAT Inadmissable Appeal Form</h2>
+    <form method="POST" action="{{ url_for('fill_pdf') }}">
+    <label for="rlsno">RLS Ref No.:</label>
+    <input type="text" id="rlsno" name="rlsno">
+    <br><br>
+    <input type="submit" value="Generate">
+    </form>
 {% endblock %}
