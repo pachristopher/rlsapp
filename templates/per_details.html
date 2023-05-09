@@ -19,7 +19,7 @@
         <label>Alias:</label>
         <input type="text" name="alias"><br>
         <label>Date of Birth:</label>
-        <input type="text" name="dob"><br>
+        <input type="date" name="dob"><br>
         <p>Gender:</p>
         <input type="radio" id="male"  name="gender" value="Male">
         <label for="male">Male</label><br>
@@ -53,6 +53,52 @@
         </select><br>
         <label>Ethnicity:</label>
         <input type="text" name="ethnicity"><br>
+        <label>Date of arrival in Ireland:</label>
+        <input type="date" name="doa"><br>
+        <label>Date left country of origin:</label>
+        <input type="date" name="dod"><br>
+        <label for="prior">Prior asylum claim?:</label>
+        <input type="checkbox" id="prior" name="prior"><br>
+        <label>If so, where?:</label>
+        <select name="prior_state">
+            {% for prior_state in nationality_options %}
+            <option value="{{ prior_state }}">{{ prior_state }}</option>
+            {% endfor %}
+        </select><br>
+        <label>Travel details:</label>
+        <input type='text' name="travel"><br>
+        <label for="smuggler">Was a smuggler used?:</label>
+        <input type="checkbox" id="smuggler" name="smuggler"><br>
+        <label for="asylum">Claiming asylum?:</label>
+        <input type="checkbox" id="asylum" name="asylum"><br>
+        <label for="sub_prot">Claiming subsidiary protection?:</label>
+        <input type="checkbox" id="sub_prot" name="sub_prot"><br>
+        <label for="reasons">Reasons:</label>
+        <div>
+            <input type="checkbox" id="pol_opin" name="reasons" value="pol_opin">
+            <label for="pol_opin">Political opinion</label>
+        </div>
+        <div>
+            <input type="checkbox" id="race" name="reasons" value="race">
+            <label for="race">Race</label>
+        </div>
+        <div>
+            <input type="checkbox" id="rel" name="reasons" value="religion">
+            <label for="rel">Religion</label>
+        </div>
+        <div>
+            <input type="checkbox" id="nat" name="reasons" value="nationality">
+            <label for="nat">Nationality</label>
+        </div>
+        <div>
+            <input type="checkbox" id="soc_group" name="reasons" value="social_group">
+            <label for="soc_group">Social group</label>
+        </div>
+
+        <label>Basis (narrative) for claim:</label>
+        <input type="text" name="basis"><br>
+        <label>Medical condition (inc. torture):</label>
+        <input type="text" name="med"><br>
         <label for="married">Married?:</label>
         <input type="checkbox" id="married" name="married"><br><br>
         <label>Number of family members:</label>

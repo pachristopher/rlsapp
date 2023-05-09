@@ -14,7 +14,7 @@ def fill_pdf():
         if client is None:
             return f'Client with RefNo {rlsno} not found', 404
         # Load the pdf form template
-        template_path = os.path.join(os.path.dirname(__file__), 'inadmiss_template.pdf')
+        template_path = os.path.join(os.path.dirname(__file__), 'templates/inadmiss_template.pdf')
         template_pdf = pdfrw.PdfReader(template_path)
 
         # Fill in the template with the client info
@@ -36,14 +36,28 @@ def fill_pdf():
         interp=client['interp'],
         language=client['language'],
         married=client['married'],
+        fam_mem_name=client['fam_mems'][0]['name']
+        fam_mem_dob=client['fam_mems'][0]['dob']
+        fam_mem_gender=client['fam_mems'][0]['gender']
+        fam_mem_relnship=client['fam_mems'][0]['relnship']
+        fam_mem_ipo_no=client['fam_mems'][0]['ipo_no']
 
         # Fill the form fields with the user's input
-        template_pdf.Root.AcroForm.Fields[0].update(pdfrw.PdfDict(V=rlsno))
+        template_pdf.Root.AcroForm.Fields[0].update(pdfrw.PdfDict(V=dob))
         template_pdf.Root.AcroForm.Fields[1].update(pdfrw.PdfDict(V=ipo_no))
-        template_pdf.Root.AcroForm.Fields[2].update(pdfrw.PdfDict(V=fname))
+        template_pdf.Root.AcroForm.Fields[2].update(pdfrw.PdfDict(V=alias))
+        template_pdf.Root.AcroForm.Fields[3].update(pdfrw.PdfDict(V=address))
+        template_pdf.Root.AcroForm.Fields[4].update(pdfrw.PdfDict(V=telno))
+        template_pdf.Root.AcroForm.Fields[5].update(pdfrw.PdfDict(V=nationality))
+        template_pdf.Root.AcroForm.Fields[6].update(pdfrw.PdfDict(V=fam_mem_name))
+        template_pdf.Root.AcroForm.Fields[7].update(pdfrw.PdfDict(V=fam_mem_dob))
+        template_pdf.Root.AcroForm.Fields[8].update(pdfrw.PdfDict(V=fam_mem_gender))
+        template_pdf.Root.AcroForm.Fields[9].update(pdfrw.PdfDict(V=fam_mem_relnship))
+        template_pdf.Root.AcroForm.Fields[10].update(pdfrw.PdfDict(V=fam_mem_ipo_no))
+        template_pdf.Root.AcroForm.Fields[11].update(pdfrw.PdfDict(V=fam_mem_dob))
 
         # Write the filled PDF form to a new file
-        output_path = os.path.join(os.path.dirname(__file__), 'output.pdf')
+        output_path = os.path.join(os.path.dirname(__file__), 'data/output.pdf')
         pdfrw.PdfWriter().write(output_path, template_pdf)
 
         # Return the filled PDF form to the user

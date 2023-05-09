@@ -6,7 +6,7 @@ rlsapp = Flask(__name__)
 from pymongo import MongoClient
 client = MongoClient('mongodb://localhost:27017/')
 db = client['rls']
-collection = db['users']
+collection = db['clients']
 
 # Define the options for the nationality field 
 with open('static/country_list.txt', 'r') as f:
@@ -44,6 +44,17 @@ def per_details():
         religion = request.form.get('religion')
         interp = request.form.get('interp') == 'on'
         language = request.form.get('language')
+        doa = request.form.get('doa')
+        dod = request.form.get('dod')
+        prior = request.form.get('prior')
+        prior_state = request.form.get('prior_state')
+        travel = request.form.get('travel')
+        smuggler = request.form.get('smuggler')
+        asylum = request.form.get('asylum')
+        reasons = request.form.getlist('reasons')
+        sub_prot = request.form.get('sub_prot')
+        basis = request.form.get('basis')
+        med = request.form.get('med')
         married = request.form.get('married') == 'on'
         num_fam_mems = int(request.form.get('num_fam_mems'))
 
@@ -82,6 +93,17 @@ def per_details():
             'religion': religion,
             'language': language,
             'interp': interp,
+            'doa': doa,
+            'dod': dod,
+            'prior': prior,
+            'prior_state': prior_state,
+            'travel': travel,
+            'smuggler': smuggler,
+            'asylum': asylum,
+            'reasons': reasons,
+            'sub_prot': sub_prot,
+            'basis': basis,
+            'med': med,
             'married': married,
             'fam_mems': fam_mems,
         }
