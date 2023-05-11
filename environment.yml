@@ -1,0 +1,10 @@
+name: rlsapp 
+dependencies:
+  - python=3.9
+  - pymongo
+  - openai 
+  - flask
+  - markdown
+  - bson
+  - pdfrw
+  - pip

@@ -103,7 +103,9 @@ Client was asked if she had applied for her labour market access and if she had 
  - That access to the labour market can be sought after 6 months
  - To inform LAB and IPO of a change of address or contact number
 
+
  ## Children and Spouse
+
 
 | Name | Date of birth | Gender | Relationship to Applicant | Personal Ref. No. |
 | :--: | :--: | :--: | :--: | :--: |

@@ -102,6 +102,10 @@ def gen_consult_notes():
             # Join the list of fam mem markdowns into a single string
             fam_mems_markdown_str = '\n'.join(fam_mems_markdown)
 
+            # Generate grounds of appeal
+            nar_basis=client['basis']
+            prompt = "" + nar_basis
+
             # Fill in the template with the client and fam mems info
             markdown_text = template.format(rlsno=client['rlsno'],
                                         ipo_no=client['ipo_no'],
