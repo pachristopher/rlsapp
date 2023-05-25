@@ -8,7 +8,7 @@ def get_chat_response(prompt):
     response = openai.Completion.create(
         engine=model_engine,
         prompt=prompt,
-        max_tokens=600,
+        max_tokens=400,
         n=1,
         stop=None,
         temperature=0.5,
@@ -22,7 +22,7 @@ prompt = "Draft grounds for applying for asylum on the basis of " + client['reas
 
 print(prompt)
 
-#chat_response = get_chat_response(prompt)
-#quoted_response = f'"{chat_response}"'
-#print(quoted_response)
+chat_response = get_chat_response(prompt)
+quoted_response = f'"{chat_response}"'
+print(quoted_response)
 

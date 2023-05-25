@@ -62,25 +62,6 @@ def gen_ipat_appeal():
     return render_template('index.html')
 
 
-"""
-# Same as above function but for latex instead of markdown
-
-@rlsapp.route('/data/latex')
-def data_latex():
-    results = collection.find()
-    html = render_template('data.html', results=results)
-    latex = subprocess.check_output(['pandoc', '-f', 'html', '-t', 'latex'], input=html.encode('utf-8')).decode('utf-8')
-    refno = results[0]['refno'] if results.count() > 0 else 'unknown'
-    filename = f'{refno}.tex'
-    filepath = os.path.join(rlsapp.root_path, 'data', filename)
-    with open(filepath, 'w') as file:
-        file.write(latex)
-    response = make_response(latex)
-    response.headers['Content-Disposition'] = f'attachment; filename={filename}'
-    response.headers['Content-Type'] = 'application/x-latex'
-    return response
-"""
-
 @rlsapp.route('/gen_consult_notes', methods=['GET', 'POST'])
 def gen_consult_notes():
     if request.method == 'POST':
@@ -98,9 +79,10 @@ def gen_consult_notes():
             for fm in client.get('fam_mems', []):
                 fm_markdown = f"""| {fm.get('name', '')} | {fm.get('dob', '')} | {fm.get('gender')} | {fm.get('relnship', '')} | {fm.get('ipo_no', '')} |"""
                 fam_mems_markdown.append(fm_markdown)
-
             # Join the list of fam mem markdowns into a single string
             fam_mems_markdown_str = '\n'.join(fam_mems_markdown)
+
+            married = 'Yes' if client['married'] else 'No'
 
             # Generate grounds of appeal
             nar_basis=client['basis']
@@ -124,7 +106,7 @@ def gen_consult_notes():
                                         religion=client['religion'],
                                         interp=client['interp'],
                                         language=client['language'],
-                                        married=client['married'],
+                                        married=married,
                                         fam_mems=fam_mems_markdown_str,
                                         doa=client['doa'],
                                         dod=client['dod'],

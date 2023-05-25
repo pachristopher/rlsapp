@@ -32,7 +32,7 @@ Left Country of Origin: {dod}
 
 Arrived in Ireland: {doa}
 
-Marital status: {married}
+Married: {married}
 
 
 **Legal Representation:**
