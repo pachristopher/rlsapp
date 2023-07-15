@@ -1,4 +1,5 @@
 from flask import Flask, request, render_template, url_for, redirect, make_response
+import json
 
 rlsapp = Flask(__name__)
 
@@ -6,7 +7,7 @@ rlsapp = Flask(__name__)
 from pymongo import MongoClient
 client = MongoClient('mongodb://localhost:27017/')
 db = client['rls']
-collection = db['clients']
+collection = db['users']
 
 # Define the options for the nationality field 
 with open('static/country_list.txt', 'r') as f:
@@ -38,6 +39,8 @@ def per_details():
         address = request.form.get('address')
         telno = request.form.get('telno')
         email = request.form.get('email')
+        occupation = request.form.get('occupation')
+        pol = request.form.get('pol')
         passport = request.form.get('passport')
         nationality = request.form.get('nationality')
         ethnicity = request.form.get('ethnicity')
@@ -91,6 +94,8 @@ def per_details():
             'nationality': nationality,
             'ethnicity': ethnicity,
             'religion': religion,
+            'pol': pol,
+            'occupation': occupation,
             'language': language,
             'interp': interp,
             'doa': doa,
@@ -118,10 +123,16 @@ def per_details():
         # Render the form template with the nationalities dropdown and default number of family members
         return render_template('per_details.html', nationality_options=NAT_OPTIONS, language_options=LANG_OPTIONS, num_fam_mems=0)
 
+# Custom jinja2 filter to convert Python object to JSON
+@rlsapp.template_filter('jsonify')
+def jsonify_filter(obj):
+    return json.dumps(obj)
+
 # Print Form Page
 # Import the routes from out_routes.py
 from out_routes import *
 from pdf_out_route import *
+from add_fee import *
 
 # Run the app
 if __name__ == '__main__':

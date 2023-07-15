@@ -1,0 +1,59 @@
+<!-- add_fee.html -->
+{% extends 'base.html' %}
+
+{% block title %}RLS Add Fee{% endblock %}
+
+{% block content %}
+    <h3>Please enter Client's rls number</h3>
+    <form method="post">
+        <input type="number" name="rlsno" required><br><br>
+        <label>Case Stage:</label>
+        <select id="stage" name="stage">
+            {% for stage in fee_cats %}
+                <option value="{{ stage }}">{{ stage }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label>Category:</label>
+        <select id="category" name="category">
+            {% set selected_stage = request.form('stage') %}
+        </select><br><br>
+
+        <p> The selected stage is: {{ selected_stage }}</p>
+        <label>Fee:</label>
+        <p>The value is: {{ fee_cats["Case Stage 1"]["Applicant"] }}</p>
+        <br><br><br>
+        <label>Date Invoiced:</label>
+        <input type="date" name="date_invoiced"><br>
+        <label>Date Paid:</label>
+        <input type="date" name="date_paid"><br>
+        <label>Liable to VAT?:</label>
+        <input type="checkbox" name="vat"><br>
+        <label>With-holding tax:</label>
+        <input type="number" name="hold_tax"><br>
+        <button type="submit">Submit</button>
+    </form>
+    
+    {% block scripts %}
+        <script>
+            // Custom jinja2 filter to convert Python object to JSON
+             var jsonify = function(obj) {
+                return JSON.stringify(obj);
+            }
+
+            // Function to update the fee field based on the selected casestage and cat 
+            function updateFee() {
+                var caseStage = document.getElementById("case_stage").value;
+                var category = document.getElementById("category").value;
+                var fee = {{ fee_cats | jsonify }}[caseStage][category];
+
+                document.getElementById("fee").value = fee;
+            }
+
+            // Call the updatefee function when the case stage or category is changed
+            document.getElementById("case_stage").addEventListener("change", updateFee);
+            document.getElementById("category").addEventListener("change", updateFee);
+        </script>
+    {% endblock %}
+
+{% endblock %}

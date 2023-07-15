@@ -20,20 +20,27 @@ As the client’s s. 13(2) interview notes, S13(2) preliminary interview or S15 
 
 [1.1] Name: {fname} {lname}
 
-[1.2] Address: {address}
+[1.2] Last Address prior to arrival in Ireland: {address}
 
 [1.3] Nationality: {nationality}
 
 [1.4] Date of birth: {dob}
 
-Religion: {religion}
+[1.5] Religion: {religion}
 
-Left Country of Origin: {dod}
+[1.6] Left Country of Origin: {dod}
 
-Arrived in Ireland: {doa}
+[1.7] Arrived in Ireland: {doa}
 
-Married: {married}
+[1.8] Married: {married}
 
+[1.9] Occupation: {occupation}
+
+[1.10] Political views / affiliations: {pol}
+
+[1.11] Confirm address in Ireland:
+
+[1.12] Email: {email}
 
 **Legal Representation:**
 
@@ -100,11 +107,11 @@ Client was asked if she had applied for her labour market access and if she had 
 - Not to leave the State without Minister’s consent
 - Importance of co-operation with all organisations including LAB and IPO
 - To give detailed, accurate, consistent and genuine information and documents and that not doing so can lead to credibility
- - That access to the labour market can be sought after 6 months
- - To inform LAB and IPO of a change of address or contact number
+- That access to the labour market can be sought after 6 months
+- To inform LAB and IPO of a change of address or contact number
 
 
- ## Children and Spouse
+## Children and Spouse
 
 
 | Name | Date of birth | Gender | Relationship to Applicant | Personal Ref. No. |
