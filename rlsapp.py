@@ -7,7 +7,7 @@ rlsapp = Flask(__name__)
 from pymongo import MongoClient
 client = MongoClient('mongodb://localhost:27017/')
 db = client['rls']
-collection = db['users']
+collection = db['clients']
 
 # Define the options for the nationality field 
 with open('static/country_list.txt', 'r') as f:
