@@ -1,26 +1,62 @@
-<style>
-.center {{
-    text-align: center;
-}}
-</style>
+![](ipat.jpg)
+&nbsp;
+
+\begin{{center}}
+\fontsize{{14pt}}{{22pt}}\selectfont
+\bfseries
+International Protection Act 2015
+
+Schedule 1
+
+International Protection Appeals
+\end{{center}}
+\normalfont
+
+\vspace{{5\baselineskip}}
+
+\begin{{center}}
+Appeal against a recommendation under section 39(3)(b).
+
+(Recommendation to refuse refugee status only).
+
+\textbf{{or}}
+
+Appeal against a recommendation under section 39(3)(c).
+
+(Recommendation to refuse both refugee status and subsidiary protection status).
+
+\textbf{{or}}
+
+Appeal against a recommendation under section 39(3)(c) in conjunction with the transitional provisions in section 70(6)(d)
+
+(Recommendation to refuse subsidiary protection status only).
+\end{{center}}
+
+\newpage
 
 **Part 1: Type of appeal**
 
 [1.1]   Please tick as appropriate:
 
-<p class="center">**Refugee Refusal Only**</p>
+\begin{{center}}
+\textbf{{Refugee Refusal Only}}
+\end{{center}}
 
 - [ ] I wish to appeal against the recommendation of the International Protection Officer under section 39(3)(b) of the International Protection Act 2015 that I should not be given a refugee declaration.
 
+\begin{{center}}
 OR
 
-**Refugee and Subsidiary Protection Refusal**
+\textbf{{Refugee and Subsidiary Protection Refusal}}
+\end{{center}}
 
 - [x] I wish to appeal against the recommendation of the International Protection Officer under section 39(3)(c) of the International Protection Act 2015 that I should be given neither a refugee declaration nor a subsidiary protection declaration.
 
+\begin{{center}}
 OR
 
-**Subsidiary Protection Refusal Only**
+\textbf{{Subsidiary Protection Refusal Only}}
+\end{{center}}
 
 - [ ] I wish to appeal against the recommendation of the International Protection Officer under section 39(3)(c) in conjunction with transitional provisions in section 70(6)(d) of the International Protection Act 2015 that I should not be given a subsidiary protection declaration. 
 
@@ -36,7 +72,7 @@ OR
 
 [2.5] Address: {address}
 
-[2.6] Telephone Number(s) (if any): {email}
+[2.6] Telephone Number(s) (if any): {telno}
 
 [2.7] Nationality: {nationality}
 
@@ -119,7 +155,7 @@ Notes: If you have any other family members with a claim for Interntional Protec
 
 [7.3] If yes, please specify the precise language or dialect for which you require interpretation.
 
-> {{ language }}
+>    {language}
 
 **Part 8: Accelerated Appeals (if applicable)**
 
